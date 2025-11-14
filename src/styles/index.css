@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transitioning-theme,
+.transitioning-theme * {
+    transition: none !important;
+}
+
+/* Magical Berg Theme Utilities */
+.magical-berg {
+    background-color: var(--theme-background);
+    color: var(--theme-foreground);
+}
+
+/* Schwartz Wald Theme Utilities */
+.schwartz-wald {
+    background-color: var(--theme-background);
+    color: var(--theme-foreground);
+}
+
+/* Custom theme variables are available as CSS custom properties */
+/* Use them in your app like: bg-[var(--theme-primary)] */
