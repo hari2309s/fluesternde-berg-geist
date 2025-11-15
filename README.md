@@ -1,6 +1,6 @@
 # fluesternde-berg-geist 🏔️🌲
 
-A beautiful, animated theme switcher for React applications with TypeScript, Tailwind CSS, Framer Motion, and Lucide Icons. Features custom themes inspired by the stunning landscapes of Austria and Germany.
+A beautiful, animated theme switcher for React applications with TypeScript, Tailwind CSS, Framer Motion, and Lucide Icons.
 
 ## Features
 
@@ -17,6 +17,7 @@ A beautiful, animated theme switcher for React applications with TypeScript, Tai
 - 🎭 Multiple variants (default, compact, dropdown, grid)
 - 🪶 Lightweight and easy to use
 - 🎨 Fully customizable with Tailwind CSS and CSS variables
+- 🔧 **Radix UI compatible** - Works seamlessly with Radix UI themes
 
 ## Installation
 ```bash
@@ -41,7 +42,28 @@ function App() {
 }
 ```
 
-### 2. Add the ThemeSwitcher component
+### 2. Using with Radix UI
+
+The theme switcher now integrates seamlessly with Radix UI:
+
+```tsx
+import { ThemeProvider as FluesterndeThemeProvider } from 'fluesternde-berg-geist';
+import { Theme as RadixTheme } from '@radix-ui/themes';
+import 'fluesternde-berg-geist/styles.css';
+import '@radix-ui/themes/styles.css';
+
+function App() {
+  return (
+    <FluesterndeThemeProvider>
+      <RadixTheme accentColor="brown" grayColor="olive">
+        {/* Your app content */}
+      </RadixTheme>
+    </FluesterndeThemeProvider>
+  );
+}
+```
+
+### 3. Add the ThemeSwitcher component
 ```tsx
 import { ThemeSwitcher } from 'fluesternde-berg-geist';
 
@@ -54,7 +76,7 @@ function Header() {
 }
 ```
 
-### 3. Use the theme in your components
+### 4. Use the theme in your components
 ```tsx
 import { useTheme } from 'fluesternde-berg-geist';
 
@@ -76,7 +98,8 @@ function MyComponent() {
 ## Custom Themes
 
 ### Magical Berg 🏔️
-Inspired by Zell am See, Austria - featuring azure mountain lakes, snow-capped peaks, and alpine meadows at sunset.
+Inspired by Zell am See, Austria - featuring azure mountain lakes, snow-capped peaks, and alpine meadows at sunset. **Optimized for warm color schemes like browns and beiges.**
+
 ```tsx
 <button onClick={() => setTheme('magical-berg')}>
   Magical Berg
@@ -84,7 +107,8 @@ Inspired by Zell am See, Austria - featuring azure mountain lakes, snow-capped p
 ```
 
 ### Schwartz Wald 🌲
-Inspired by the Black Forest, Germany - featuring deep forest greens, dark woods, moss, and autumn gold.
+Inspired by the Black Forest, Germany - featuring deep forest greens, dark woods, moss, and autumn gold. **Perfect for creating a cozy, earthy atmosphere.**
+
 ```tsx
 <button onClick={() => setTheme('schwartz-wald')}>
   Schwartz Wald
@@ -93,7 +117,8 @@ Inspired by the Black Forest, Germany - featuring deep forest greens, dark woods
 
 ## Using Theme Colors in Your App
 
-Custom theme colors are available as CSS custom properties:
+Custom theme colors are available as CSS custom properties and automatically applied to Radix UI components:
+
 ```tsx
 // In your Tailwind classes
 <div className="bg-[var(--theme-background)] text-[var(--theme-foreground)]">
@@ -101,6 +126,11 @@ Custom theme colors are available as CSS custom properties:
     Primary Button
   </button>
 </div>
+
+// Radix UI components automatically pick up theme colors
+<Card>
+  <Text>This text will use theme colors!</Text>
+</Card>
 ```
 
 Available CSS variables:
@@ -163,15 +193,19 @@ module.exports = {
 }
 ```
 
-## Styling Custom Themes
+## Radix UI Integration
 
-You can access and use the theme color palettes directly:
-```tsx
-import { magicalBergTheme, schwartzWaldTheme } from 'fluesternde-berg-geist';
+The theme switcher automatically overrides Radix UI's accent colors for the custom themes:
 
-console.log(magicalBergTheme.primary); // #2b6cb0
-console.log(schwartzWaldTheme.accent); // #c17817
-```
+- **Magical Berg**: Blue tones that complement warm brown/beige UIs
+- **Schwartz Wald**: Forest green tones with excellent readability in dark mode
+
+Radix UI components that are automatically styled:
+- Cards (`rt-Card`)
+- Text inputs (`rt-TextField-Input`)
+- Badges (`rt-Badge`)
+- Separators (`rt-Separator`)
+- Text & Headings (`rt-Text`, `rt-Heading`)
 
 ## API
 
@@ -204,23 +238,21 @@ Returns an object with:
 ## Theme Color Reference
 
 ### Magical Berg (Zell am See)
-- Background: `#f0f4f8` - Soft sky blue
+Optimized for brown/beige color schemes:
+- Background: `#e8f0f8` - Soft sky blue
 - Foreground: `#1a365d` - Deep mountain blue
 - Primary: `#2b6cb0` - Lake blue
-- Secondary: `#805ad5` - Alpine sunset purple
-- Accent: `#ed8936` - Sunset orange
-- Muted: `#cbd5e0` - Misty mountain gray
-- Border: `#a0aec0` - Stone gray
-- Card: `#ffffff` - Pure snow white
+- Secondary: `#d2e8f5` - Pale sky
+- Accent: `#5a8fc4` - Mountain blue
+- Card: `#f8fbfd` - Nearly white with blue tint
 
 ### Schwartz Wald (Black Forest)
+Perfect for cozy, earthy atmospheres:
 - Background: `#1a1f1a` - Deep forest night
 - Foreground: `#e8f5e9` - Morning mist
-- Primary: `#2d5016` - Dark forest green
-- Secondary: `#8b4513` - Rich wood brown
+- Primary: `#5d7a5d` - Forest green
+- Secondary: `#3d4a3d` - Mossy stone
 - Accent: `#c17817` - Autumn gold
-- Muted: `#3d4a3d` - Mossy stone
-- Border: `#4a5d4a` - Forest shadow
 - Card: `#243324` - Dark bark
 
 ## License
