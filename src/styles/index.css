@@ -2,22 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-.transitioning-theme,
-.transitioning-theme * {
-    transition: none !important;
+@layer base {
+    /* Prevent transitions during theme changes */
+    .transitioning-theme,
+    .transitioning-theme *,
+    .transitioning-theme *::before,
+    .transitioning-theme *::after {
+        transition: none !important;
+        animation-duration: 0s !important;
+    }
+
+    /* Apply theme colors to root elements */
+    .magical-berg {
+        background-color: var(--theme-background);
+        color: var(--theme-foreground);
+    }
+
+    .schwartz-wald {
+        background-color: var(--theme-background);
+        color: var(--theme-foreground);
+    }
+
+    .light {
+        background-color: white;
+        color: #1a202c;
+    }
+
+    .dark {
+        background-color: #1a202c;
+        color: #f7fafc;
+    }
 }
 
-/* Magical Berg Theme Utilities */
-.magical-berg {
-    background-color: var(--theme-background);
-    color: var(--theme-foreground);
-}
+@layer utilities {
+    /* Utility classes for theme colors */
+    .bg-theme-background {
+        background-color: var(--theme-background);
+    }
 
-/* Schwartz Wald Theme Utilities */
-.schwartz-wald {
-    background-color: var(--theme-background);
-    color: var(--theme-foreground);
-}
+    .bg-theme-card {
+        background-color: var(--theme-card);
+    }
 
-/* Custom theme variables are available as CSS custom properties */
-/* Use them in your app like: bg-[var(--theme-primary)] */
+    .text-theme-foreground {
+        color: var(--theme-foreground);
+    }
+
+    .border-theme-border {
+        border-color: var(--theme-border);
+    }
+}

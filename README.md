@@ -1,6 +1,6 @@
 # fluesternde-berg-geist 🏔️🌲
 
-A beautiful, animated theme switcher for React applications with TypeScript, Tailwind CSS, Framer Motion, and Lucide Icons.
+A beautiful, animated theme switcher for React applications with TypeScript, Tailwind CSS, Framer Motion, and Lucide Icons. Features custom themes inspired by the stunning landscapes of Austria and Germany.
 
 ## Features
 

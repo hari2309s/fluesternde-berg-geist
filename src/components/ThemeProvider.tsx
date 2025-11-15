@@ -47,17 +47,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       themeName === "magical-berg" ? magicalBergTheme : schwartzWaldTheme;
 
     // Apply theme colors as CSS custom properties
-    root.style.setProperty("--theme-background", colors.background);
-    root.style.setProperty("--theme-foreground", colors.foreground);
-    root.style.setProperty("--theme-primary", colors.primary);
-    root.style.setProperty("--theme-secondary", colors.secondary);
-    root.style.setProperty("--theme-accent", colors.accent);
-    root.style.setProperty("--theme-muted", colors.muted);
-    root.style.setProperty("--theme-border", colors.border);
-    root.style.setProperty("--theme-card", colors.card);
+    Object.entries(colors).forEach(([key, value]) => {
+      root.style.setProperty(`--theme-${key}`, value);
+    });
 
     // Apply to Radix UI accent colors for better integration
     if (themeName === "magical-berg") {
+      // Light blue theme colors for Magical Berg
       root.style.setProperty("--accent-1", "#f0f4f8");
       root.style.setProperty("--accent-2", "#e8f0f8");
       root.style.setProperty("--accent-3", "#d9e6f2");
@@ -71,6 +67,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       root.style.setProperty("--accent-11", "#1a365d");
       root.style.setProperty("--accent-12", "#0f2540");
     } else if (themeName === "schwartz-wald") {
+      // Dark green theme colors for Schwartz Wald
       root.style.setProperty("--accent-1", "#1a1f1a");
       root.style.setProperty("--accent-2", "#1f241f");
       root.style.setProperty("--accent-3", "#243324");
@@ -88,31 +85,24 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
   const removeThemeColors = () => {
     const root = document.documentElement;
-    root.style.removeProperty("--theme-background");
-    root.style.removeProperty("--theme-foreground");
-    root.style.removeProperty("--theme-primary");
-    root.style.removeProperty("--theme-secondary");
-    root.style.removeProperty("--theme-accent");
-    root.style.removeProperty("--theme-muted");
-    root.style.removeProperty("--theme-border");
-    root.style.removeProperty("--theme-card");
+
+    // Remove theme variables
+    const themeProps = [
+      "background",
+      "foreground",
+      "primary",
+      "secondary",
+      "accent",
+      "muted",
+      "border",
+      "card",
+    ];
+    themeProps.forEach((prop) => root.style.removeProperty(`--theme-${prop}`));
 
     // Reset Radix UI colors to default
-    const accentProps = [
-      "--accent-1",
-      "--accent-2",
-      "--accent-3",
-      "--accent-4",
-      "--accent-5",
-      "--accent-6",
-      "--accent-7",
-      "--accent-8",
-      "--accent-9",
-      "--accent-10",
-      "--accent-11",
-      "--accent-12",
-    ];
-    accentProps.forEach((prop) => root.style.removeProperty(prop));
+    for (let i = 1; i <= 12; i++) {
+      root.style.removeProperty(`--accent-${i}`);
+    }
   };
 
   useEffect(() => {
@@ -138,7 +128,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     setEffectiveTheme(newEffectiveTheme);
 
     // Remove all theme classes first
-    root.classList.remove("dark", "magical-berg", "schwartz-wald");
+    root.classList.remove("dark", "magical-berg", "schwartz-wald", "light");
 
     // Apply appropriate theme
     if (newEffectiveTheme === "dark") {
@@ -151,14 +141,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       root.classList.add("schwartz-wald");
       applyThemeColors("schwartz-wald");
     } else {
+      root.classList.add("light");
       removeThemeColors();
     }
 
     // Re-enable transitions
     if (finalConfig.enableTransitions) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         root.classList.remove("transitioning-theme");
-      }, 0);
+      });
     }
   }, [theme, finalConfig.enableTransitions]);
 
@@ -170,9 +161,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       const systemTheme = getSystemTheme();
       setEffectiveTheme(systemTheme);
       const root = document.documentElement;
-      root.classList.remove("dark", "magical-berg", "schwartz-wald");
+      root.classList.remove("dark", "magical-berg", "schwartz-wald", "light");
       if (systemTheme === "dark") {
         root.classList.add("dark");
+      } else {
+        root.classList.add("light");
       }
       removeThemeColors();
     };
