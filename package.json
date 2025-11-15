@@ -1,6 +1,6 @@
 {
   "name": "fluesternde-berg-geist",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "A beautiful theme switcher with smooth animations for React applications, featuring custom themes inspired by Mountain and Forest landscapes",
   "type": "module",
   "main": "./dist/fluesternde-berg-geist.umd.js",
