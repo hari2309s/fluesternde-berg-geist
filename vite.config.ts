@@ -26,12 +26,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),
-      "@/components": resolve(__dirname, "./src/components"),
-      "@/hooks": resolve(__dirname, "./src/hooks"),
-      "@/types": resolve(__dirname, "./src/types"),
-      "@/themes": resolve(__dirname, "./src/themes"),
-      "@/utils": resolve(__dirname, "./src/utils"),
-      "@/styles": resolve(__dirname, "./src/styles"),
     },
   },
   build: {
