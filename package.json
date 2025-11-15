@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tailwindcss -i ./src/styles/index.css -o ./dist/style.css --minify && tsc && vite build",
     "preview": "vite preview",
     "prepublishOnly": "pnpm run build"
   },

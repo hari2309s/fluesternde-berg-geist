@@ -11,7 +11,6 @@ export default defineConfig({
       include: ["src/**/*"],
       exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx"],
       beforeWriteFile: (filePath, content) => {
-        // Transform alias paths in declaration files
         const transformedContent = content
           .replace(/@\/components/g, "./components")
           .replace(/@\/hooks/g, "./hooks")
@@ -20,11 +19,7 @@ export default defineConfig({
           .replace(/@\/utils/g, "./utils")
           .replace(/@\/styles/g, "./styles")
           .replace(/@\//g, "./");
-
-        return {
-          filePath,
-          content: transformedContent,
-        };
+        return { filePath, content: transformedContent };
       },
     }),
   ],
@@ -55,8 +50,10 @@ export default defineConfig({
           "framer-motion": "FramerMotion",
           "lucide-react": "LucideReact",
         },
+        assetFileNames: "style.[ext]",
       },
     },
     cssCodeSplit: false,
+    copyPublicDir: false,
   },
 });
